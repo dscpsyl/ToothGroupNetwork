@@ -1,0 +1,40 @@
+python3 preprocess_data.py \
+  --source_obj_data_path ../data/data_obj_parent_directory \
+  --source_json_data_path ../data/data_json_parent_directory \
+  --save_data_path ../data/preprocessed
+
+
+
+
+python3 start_train.py \
+  --model_name "tgnet_fps" \
+  --config_path "train_configs/tgnet_fps.py" \
+  --experiment_name "UCEAP M24 OsakaU Testing 1" \
+  --input_data_dir_path ../data/preprocessed \
+  --train_data_split_txt_path ../data/base_name_train_fold.txt \
+  --val_data_split_txt_path ../data/base_name_val_fold.txt
+
+
+
+python3 start_train.py \
+  --model_name "tgnet_bdl" \
+  --config_path "train_configs/tgnet_bdl.py" \
+  --experiment_name "UCEAP M24 OsakaU Testing 1" \
+  --input_data_dir_path ../data/preprocessed \
+  --train_data_split_txt_path ../data/base_name_train_fold.txt  \
+  --val_data_split_txt_path ../data/base_name_val_fold.txt
+
+
+python start_inference.py \
+  --input_dir_path ../data/data_obj_parent_directory \
+  --split_txt_path ../data/base_name_test_fold.txt \
+  --save_path ../testing_results \
+  --model_name "tgnet" \
+  --checkpoint_path ../tgnet_fps \
+  --checkpoint_path_bdl ../tgnet_bdl
+
+
+python render.py \
+  --mesh_path ../data/data_obj_parent_directory/VS5EECWH/VS5EECWH_upper.obj \
+  --gt_json_path ../data/data_json_parent_directory/VS5EECWH/VS5EECWH_upper.json \
+  --pred_json_path ../testing_results/VS5EECWH_upper.json
