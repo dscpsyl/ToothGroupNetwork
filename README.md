@@ -107,6 +107,16 @@ parentFolder
 ----*.json...
 ```
 
+Also note that you will need to have a conda environment installed on your local system with the some of the dependencies installed.
+
+```sh
+conda create -p ./env
+conda activate ./env
+
+conda install python=3.8
+pip install trimesh numpy open3d
+```
+
 Finally, to view the predicted results, you can simply run, from the repo root,
 
 ```sh
