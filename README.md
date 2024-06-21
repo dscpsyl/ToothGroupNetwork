@@ -7,7 +7,7 @@ You will need a specific docker image for this. You will need to clone this repo
 Install [this](https://hub.docker.com/layers/pytorch/pytorch/1.7.1-cuda11.0-cudnn8-devel/images/sha256:f0d0c1b5d4e170b4d2548d64026755421f8c0df185af2c4679085a7edc34d150) docker image into your local machine with the following command to allow for GPU access.
 
 ```sh
-sudo docker run --it --gpus all pytorch/pytorch:1.7.1-cuda11.0-cudnn8-devel bash
+sudo docker run -it --gpus all pytorch/pytorch:1.7.1-cuda11.0-cudnn8-devel bash
 ```
 
 This will install the docker and give you shell access into it. If you ever exit the shell, you can always reenter it with 
