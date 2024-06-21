@@ -1,13 +1,9 @@
 import sys
 import os
-from trimesh import PointCloud
 import trimesh
 sys.path.append(os.getcwd())
-from glob import glob
 import numpy as np
 import open3d as o3d
-from sklearn.neighbors import KDTree
-import copy
 import argparse
 import json
 
