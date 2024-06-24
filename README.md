@@ -122,3 +122,7 @@ Finally, to view the predicted results, you can simply run, from the repo root,
 ```sh
 ./render {ID} {upper|lower}
 ```
+
+## Suggestions
+
+I recommend taking a look at `render.sh`, `transfer.sh`, and `helper.sh` as they are all scripts I've used to make my life easier.
