@@ -55,6 +55,8 @@ Cool! That is the setup done! Now, it's time to format the data correctly. I wil
 
 To format the data, it needs to be a .obj file with the naming convention {ID}_lower.obj and {ID}_upper.obj. These two files should be put into a directory with the same name as {ID}. Great! You have the data properly formatted.
 
+In addition, you will need to make sure that the data is in the correct orientation. (See the origional repo for mroe details.) Contained here is `test_data_process.py`, which will orient the data given a specific axis setting that we are currently using.
+
 In the docker, I assume you have installed this repo at /workspace/ToothGroupNetwork. In that case, create the following data folder and metadata file.
 
 ```sh
