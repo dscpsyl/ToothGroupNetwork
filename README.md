@@ -128,3 +128,5 @@ Finally, to view the predicted results, you can simply run, from the repo root,
 ## Suggestions
 
 I recommend taking a look at `render.sh`, `transfer.sh`, and `helper.sh` as they are all scripts I've used to make my life easier.
+
+For my specific use case, I have `test_preprocessor.py` to help me rotate the data into the correct orientation. A note here, I recommend converting from `.ply` instead of `.stl`. Out of all the methods and conversions I've tried, only one obsecure online sites convert `.stl` to `.obj` completely without any dataloss (3dPea). All other attempts, even with trimesh, have failed.
