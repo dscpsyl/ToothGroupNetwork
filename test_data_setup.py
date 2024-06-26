@@ -4,9 +4,8 @@ import argparse as ap
 
 
 
-def stl2obj(stl_file, obj_file):
-    t.load(stl_file).export(obj_file, digits=15, include_normals=True)
-
+def ply2obj(ply_file, obj_file):
+    t.load(ply_file).export(obj_file, digits=15, include_normals=True)
 
 def upperProcess(mesh):
     center = [0, 0, 0]
@@ -38,21 +37,17 @@ def lowerProcess(mesh):
 
 def main(args):
     
-    if args.stl_file is None or args.obj_file is None:
+    if args.ply_file is None or args.obj_file is None:
         print('Please provide input and output file')
         return
 
-    if not args.stl_file.lower().endswith('.stl') or not args.obj_file.lower().endswith('.obj'):
-        print('Please provide a valid input and output file')
+    if not args.ply_file.lower().endswith('.ply') or not args.obj_file.lower().endswith('.obj'):
+        print('Please provide a valid input ply and output obj file')
         return
     
-    if args.part not in ['u', 'l']:
-        print('Please provide a valid part')
-        return
+    mesh = t.load(args.ply_file)
     
-    mesh = t.load(args.stl_file)
-    
-    if args.part == 'u':
+    if args.jaw == 'u':
         mesh = upperProcess(mesh)
     else:
         mesh = lowerProcess(mesh)
@@ -61,9 +56,9 @@ def main(args):
 
 if __name__ == '__main__':
     parser = ap.ArgumentParser(description='Test data preprocessing to get it ready for the model')
-    parser.add_argument('-s', '--stl-file', type=str, help='Input stl file')
+    parser.add_argument('-p', '--ply-file', type=str, help='Input ply file')
     parser.add_argument('-o', '--obj-file', type=str, help='Output obj file')
-    parser.add_argument('-p', '--part', type=str, help= "Either 'u' for upper part or 'l' for lower part")
+    parser.add_argument('-j', '--jaw', type=str, choices=['u', 'l'], help= "Either 'u' for upper part or 'l' for lower part")
     args = parser.parse_args()
 
     main(args)
