@@ -2,7 +2,7 @@
 
 echo "This is a helper script to envoke render.py more easily by giving it simply the data-hash file name. We require the dataset to be store in ../data as specified in the origional project readme and the predicted tests stored in ../testing_results."
 echo "No safety is guarenteeded with this script."
-echo "The first one that comes out is ground truth. The second one is predicted"
+echo "The one that comes out is the predicted model."
 
 
 if [ $# -eq 0 ]

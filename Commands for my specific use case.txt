@@ -28,7 +28,7 @@ python3 start_train.py \
 python start_inference.py \
   --input_dir_path ../data/data_obj_parent_directory \
   --split_txt_path ../data/base_name_test_fold.txt \
-  --save_path ../data/test_results \
+  --save_path ../testing_results \
   --model_name "tgnet" \
   --checkpoint_path ../tgnet_fps \
   --checkpoint_path_bdl ../tgnet_bdl

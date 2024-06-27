@@ -20,9 +20,8 @@ def _load_json(file_path):
     
 def _get_colored_mesh(mesh, label_arr):
     palte = np.array([
-        [255,153,153],
+		[255,153,153],
         
-        # This is the ISO color palte for classifying teeth.
         [56, 93, 56],
         [87, 51, 40],
         [0, 59, 81],
@@ -118,7 +117,7 @@ def _get_colored_mesh(mesh, label_arr):
         [69, 48, 40],
         [95, 84, 57],
         [50, 68, 50]
-        
+
     ])/255
     # palte[9:] *= 0.4
     label_arr = label_arr.copy()
@@ -226,7 +225,7 @@ pred_labels = np.array(pred_loaded_json['labels']).reshape(-1)
 
 # IoU, F1, Acc, SEM_ACC, _ = cal_metric(gt_labels, pred_labels, pred_labels) # F1 -> TSA, SEM_ACC -> TIR
 # print("IoU", IoU, "F1(TSA)", F1, "SEM_ACC(TIR)", SEM_ACC)
-_, mesh = _read_txt_obj_ls(args.mesh_path, ret_mesh=True, use_tri_mesh=False)
+_, mesh = _read_txt_obj_ls(args.mesh_path, ret_mesh=True, use_tri_mesh=True)
 
 _print_3d(_get_colored_mesh(mesh, pred_labels)) # color is random
 # _print_3d(_get_colored_mesh(mesh, gt_labels)) # color is random

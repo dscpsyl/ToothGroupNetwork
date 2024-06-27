@@ -41,9 +41,9 @@ def main(args):
         print('Please provide input and output file')
         return
 
-    if not args.ply_file.lower().endswith('.ply') or not args.obj_file.lower().endswith('.obj'):
-        print('Please provide a valid input ply and output obj file')
-        return
+    # if not args.ply_file.lower().endswith('.ply') or not args.obj_file.lower().endswith('.obj'):
+    #     print('Please provide a valid input ply and output obj file')
+    #     return
     
     if args.jaw not in ['u', 'l']:
         print('Please provide a valid jaw part')
