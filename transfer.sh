@@ -12,4 +12,5 @@ fi
 
 if [[ "$1" == "down" ]]; then
     sudo docker cp 7a768fe93fc7:/workspace/3DToothSegmentation/testing_results ../
+    sudo chown -R $USER:$USER ../testing_results
 fi
