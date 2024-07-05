@@ -1,22 +1,13 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
-            "type": "python",
+            "name": "Python Debugger: Current File with Arguments",
+            "type": "debugpy",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "justMyCode": true,
-            "args": [
-                "--input_path",
-                "G:/tooth_seg/main/all_datas/chl/3D_scans_per_patient_obj_files",
-                "--save_path",
-                "output_path"
-            ]
+            "args": ["-i", "/home/user/Downloads/3DToothSegmentation/data/data_obj_parent_directory/p1/p1_lower.obj", "-j", "/home/user/Downloads/3DToothSegmentation/testing_results/p1_lower.json"]
         }
     ]
 }
