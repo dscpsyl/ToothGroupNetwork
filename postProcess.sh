@@ -6,7 +6,7 @@
 
 if [[ $# -lt 2 ]]; then
     echo "Usage: $0 -i <input_obj_file> -j <input_json_file>"
-    exit 1
+    exit 1 
 fi
 
-python3 postProcess.py -i "$1" -j "$2
+python3 postProcess.py -i "$1" -j "$2"
