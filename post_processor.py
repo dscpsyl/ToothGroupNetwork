@@ -319,7 +319,7 @@ class JawAlignment:
         print(f"Square Differences: {d}")
         print(f"Mean Square Difference: {m}")
         
-        self.plot(r=self.r[0], show=True)
+        self.plot(show=True)
 
     def __selectRegressor(self, regressor, **kwargs):
         """A helper function to select which regressor to use for this class.
@@ -449,7 +449,7 @@ class JawAlignment:
         else:
             return d
 
-    def plot(self, r="", save=False, savePath=None, show=True):
+    def plot(self, save=False, savePath="", show=True):
         """A function to plot the predicted and actual points.
         
         Args:
@@ -472,7 +472,7 @@ class JawAlignment:
         __text = f"Patient: {op.basename(self.meshPath).split('_')[0]} \nMean Square Difference: {m:.2f}"
         ax.text(0.5, 0.5, __text, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes)
         
-        ax.plot(c_x, self.p.predict(pX), label=f"Predicted Teeth Centers ({r} regressor)", color="red")
+        ax.plot(c_x, self.p.predict(pX), label=f"Predicted Teeth Centers ({self.r[0]} regressor)", color="red")
         
         ax.legend()
         
@@ -484,6 +484,8 @@ class JawAlignment:
         
         if show:
             plt.show()
+        
+        plt.close(fig)
         
 
 def main(argv):
@@ -498,6 +500,48 @@ def main(argv):
     _ = JawAlignment(argv.input_mesh, argv.output_json, multiProcess=True, debug=False, modelEval=True, regressor=__TEST, **__rKargs[__TEST])
 
 
+def BATCHSAMPLE():
+    """TMP::DEBUG
+    """
+    SEED = 69
+    SAMPLES = 10
+    
+    __rKargs = { "base" : {"degree": 6},
+                "ransac": {"degree": 6, "min_samples": 2, "max_trials": 10_000, "loss": "absolute_error"},
+                "huber": {"degree" : 6, "epsilon": 1.15, "max_iter": 100_000, "alpha": 0.000_1, "fit_intercept" : False}         
+        }
+    
+    import random
+    import os
+    
+    random.seed(SEED) # make consistent
+    
+    with open("../data/base_name_test_fold.txt") as f:
+        datapoints = f.readlines()
+    
+    arch = random.sample(datapoints, SAMPLES)
+    
+    sDir = "../data/post_processing_results"
+    
+    for point in arch:
+        
+        s = op.basename(point).strip().split('_')[0]
+        os.makedirs(f"{sDir}/{s}", exist_ok=True)
+        
+        for jaw in ["upper", "lower"]:
+            
+            mP = f"/home/user/Downloads/3DToothSegmentation/data/data_obj_parent_directory/{s}/{s}_{jaw}.obj"
+            jP = f"/home/user/Downloads/3DToothSegmentation/testing_results/{s}_{jaw}.json"
+            
+            for regressor in ["base", "ransac", "huber"]:
+                
+                sdj = JawAlignment(mP, jP, multiProcess=True, debug=False, modelEval=False, regressor=regressor, **__rKargs[regressor])
+                sdj.plot(save=True, savePath=f"{sDir}/{s}/{s}_{jaw}_{regressor}.png", show=False)
+                
+                print(f"Finished: {s}_{jaw}_{regressor}")
+    
+    
+
 if __name__ == '__main__':
     
     parser = ap.ArgumentParser(description="Post processing steps and helpful tools on input mesh and output json labels.")
@@ -507,4 +551,6 @@ if __name__ == '__main__':
     
     argv = parser.parse_args()
     
-    main(argv)
+    # main(argv)
+    
+    BATCHSAMPLE()
