@@ -297,7 +297,7 @@ class JawAlignment:
         self.centers = self.C.getCenters()
         
         self.p = None
-        self.polyFilter = [1, 3, 4, 5] #blacklist
+        self.polyFilter = [1, 3, 5] #blacklist
         self.poly = PolynomialFeatures(degree=rKwargs["degree"]) # We include bias just for easier reasoning of which columns to delete
         _ = rKwargs.pop("degree", None)
         self.r = (regressor, self.__selectRegressor(regressor, **rKwargs))
@@ -539,7 +539,6 @@ def BATCHSAMPLE():
                 sdj.plot(save=True, savePath=f"{sDir}/{s}/{s}_{jaw}_{regressor}.png", show=False)
                 
                 print(f"Finished: {s}_{jaw}_{regressor}")
-    
     
 
 if __name__ == '__main__':
