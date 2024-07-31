@@ -119,6 +119,12 @@ conda install python=3.8
 pip install trimesh numpy open3d
 ```
 
+There is also now an enmvironment `.yml` file that can be used
+
+```sh
+conda env create -f environment.yml
+```
+
 Finally, to view the predicted results, you can simply run, from the repo root,
 
 ```sh
