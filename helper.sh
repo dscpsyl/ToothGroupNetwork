@@ -13,3 +13,8 @@ if [[ "$1" == "test" ]]; then
   		--checkpoint_path ../tgnet_fps \
   		--checkpoint_path_bdl ../tgnet_bdl
 fi
+
+if [[ $1 == "clean" ]]; then
+	rm -rf ../testing_results/*
+	rm -rf ../data/data_obj_parent_directory/*
+fi
