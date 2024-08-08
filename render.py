@@ -29,95 +29,6 @@ def _get_colored_mesh(mesh, label_arr):
         [69, 48, 40],
         [95, 84, 57],
         [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50],
-        
-        [56, 93, 56],
-        [87, 51, 40],
-        [0, 59, 81],
-        [43, 72, 82],
-        [69, 48, 40],
-        [95, 84, 57],
-        [50, 68, 50]
-
     ])/255
     # palte[9:] *= 0.4
     label_arr = label_arr.copy()
@@ -125,8 +36,7 @@ def _get_colored_mesh(mesh, label_arr):
     label_colors = np.zeros((label_arr.shape[0], 3))
     for idx, palte_color in enumerate(palte):
         label_colors[label_arr==idx] = palte[idx]
-    mesh.vertex_colors = o3d.utility.Vector3dVector(label_colors)
-    print(np.asarray(mesh.vertex_colors))
+    mesh.vertex_colors = o3d.utility.Vector3dVector(label_colors)    
     return mesh
     
 def _read_txt_obj_ls(path, ret_mesh=False, use_tri_mesh=False):
@@ -170,6 +80,15 @@ def _read_txt_obj_ls(path, ret_mesh=False, use_tri_mesh=False):
     if ret_mesh:
         output.append(mesh)
     return output
+
+def np_to_pcd(arr, color=[1,0,0]):
+    arr = np.array(arr)
+    pcd = o3d.geometry.PointCloud()
+    pcd.points = o3d.utility.Vector3dVector(arr[:,:3])
+    if arr.shape[1] >= 6:
+        pcd.normals = o3d.utility.Vector3dVector(arr[:,3:6])
+    pcd.colors = o3d.utility.Vector3dVector([color]*len(pcd.points))
+    return pcd
 
 def _print_3d(*data_3d_ls):
     data_3d_ls = [item for item in data_3d_ls]
@@ -225,7 +144,7 @@ pred_labels = np.array(pred_loaded_json['labels']).reshape(-1)
 
 # IoU, F1, Acc, SEM_ACC, _ = cal_metric(gt_labels, pred_labels, pred_labels) # F1 -> TSA, SEM_ACC -> TIR
 # print("IoU", IoU, "F1(TSA)", F1, "SEM_ACC(TIR)", SEM_ACC)
-_, mesh = _read_txt_obj_ls(args.mesh_path, ret_mesh=True, use_tri_mesh=True)
+_, mesh = _read_txt_obj_ls(args.mesh_path, ret_mesh=True, use_tri_mesh=False)
 
 _print_3d(_get_colored_mesh(mesh, pred_labels)) # color is random
 # _print_3d(_get_colored_mesh(mesh, gt_labels)) # color is random
